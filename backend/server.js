@@ -122,6 +122,26 @@ app.put('/addCollection', async (req, res) => {
     })
 })
 
+app.put('/removeCollection', async (req, res) => {
+    let collection_name = req.body.cname
+
+    // get chef from database 
+    let chef = await Chef.findById(active_chef_id)
+
+    for (let i = 0; i <= chef.recipe_book.length; i++) {
+        if (chef.recipe_book[i].name === collection_name) {
+            chef.recipe_book.pull(chef.recipe_book[i])
+            break;
+        }
+    }
+
+    chef.save()
+
+    res.status(200).json({
+        message: `Successfully removed ${collection_name}`
+    })
+})
+
 app.put('/addRecipe', async (req,res) => {
     let collection_name = req.body.cname
     let recipe_id = req.body.rid 
