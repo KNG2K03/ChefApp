@@ -81,6 +81,32 @@ app.post('/signup', async (req, res) => {
     })
 })
 
+app.get('/signin', async (req, res) => {
+    let username = req.body.uname
+    let password = req.body.pass
+
+    // find chef with the correct credentials
+    let chef = await Chef.findOne({user_name: username, pass_word: password})
+    if (chef !== null) {
+        // set the active id for the session
+        active_chef_id = chef.id
+
+        res.status(200).json({
+            message: "Successfully Signed In!",
+            chef_fname: chef.first_name,
+            chef_lname: chef.last_name,
+            chef_uname: chef.user_name,
+            chef_recipe_book: chef.recipe_book
+        })
+    }
+    else {
+        res.status(500).json({
+            message: "Data could not be found!"
+        })
+    }
+
+})
+
 app.listen(port, () => {
     console.log(`App listening on port ${port}...`)
     console.log(`Go to http://localhost:${port}`)
