@@ -111,17 +111,26 @@ app.put('/addRecipe', async (req,res) => {
     let collection_name = req.body.cname
     let recipe_id = req.body.rid 
 
+    let collection_index = null;
+    let duplicate = false;
+
     // get chef from database 
     let chef = await Chef.findById(active_chef_id)
 
     for(let i = 0; i <= chef.recipe_book.length - 1; i++) {
         if (chef.recipe_book[i].name === collection_name) {
-            chef.recipe_book[i].meals.push(recipe_id); 
+            collection_index = i;
             break;
         }
-    }
+    } // loop through array to get the index of the collection
+    
+    // check if there are any duplicates 
+    for (let x of chef.recipe_book[collection_index].meals) if (x === recipe_id) duplicate = true;
 
-    chef.save()
+    if (!duplicate) {
+        chef.recipe_book[collection_index].meals.push(recipe_id)
+        chef.save()
+    }
     
     res.status(200).json({
         message: `Successfully added ${recipe_id} to ${collection_name}`
