@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar } from '@ionic/angular/standalone';
 import { FoodService } from '../Services/food';
-import { MealCardComponent } from "../components/meal-card/meal-card.component";
 import { LongMealCardComponent } from "../components/long-meal-card/long-meal-card.component";
 
 @Component({
@@ -11,7 +10,7 @@ import { LongMealCardComponent } from "../components/long-meal-card/long-meal-ca
   templateUrl: './search.page.html',
   styleUrls: ['./search.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonSearchbar, MealCardComponent, LongMealCardComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonSearchbar, LongMealCardComponent]
 })
 export class SearchPage implements OnInit {
 

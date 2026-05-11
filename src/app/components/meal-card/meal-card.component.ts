@@ -1,6 +1,5 @@
 import { Component, input, OnInit } from '@angular/core';
-import { FoodService } from '../../Services/food';
-import { IonCard, IonCardTitle, IonCardSubtitle, IonContent, IonCardContent, IonCardHeader } from "@ionic/angular/standalone";
+import { IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader } from "@ionic/angular/standalone";
 
 
 @Component({
