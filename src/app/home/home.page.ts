@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonTab, IonTabs, IonIcon, IonTabButton, IonTabBar } from '@ionic/angular/standalone';
+import { Component } from '@angular/core';
+import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 import { MealCardComponent } from '../components/meal-card/meal-card.component';
 import { FoodService } from '../Services/food';
 
@@ -7,10 +7,10 @@ import { FoodService } from '../Services/food';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, MealCardComponent, IonList, IonItem, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonTab, IonTabs, IonIcon, IonTabButton, IonTabBar],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, MealCardComponent],
 })
 export class HomePage {
-  
+
   constructor(private foodService:FoodService) {
     // get 5 countries and add them to the featured countries array
     for (let i=0; i<=4; i++) {
