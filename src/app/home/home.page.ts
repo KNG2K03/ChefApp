@@ -10,6 +10,7 @@ import { FoodService } from '../Services/food';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, MealCardComponent, IonList, IonItem, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonTab, IonTabs, IonIcon, IonTabButton, IonTabBar],
 })
 export class HomePage {
+  
   constructor(private foodService:FoodService) {
     // get 5 countries and add them to the featured countries array
     for (let i=0; i<=4; i++) {
@@ -71,7 +72,8 @@ export class HomePage {
               meal_name: data.meals[0].strMeal,
               meal_image: data.meals[0].strMealThumb,
               meal_category: data.meals[0].strCategory,
-              meal_area: data.meals[0].strArea
+              meal_area: data.meals[0].strArea,
+              meal_id : data.meals[0].idMeal
             }
 
             // add the meal to the countries' meals array
