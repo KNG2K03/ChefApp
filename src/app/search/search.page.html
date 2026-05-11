@@ -1,13 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>search</ion-title>
+    <ion-title>Search</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [debounce]="1000" (ionInput)="input_event($event)" animated="true" placeholder="Spaghetti Bolognese"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">search</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div id="SearchContents">
+    <div id="SearchResults">
+      @for(x of search_results; track $index) {
+        <app-long-meal-card  [meal_name]=x.meal_name [meal_image]=x.meal_image [meal_area]=x.meal_area [meal_category]=x.meal_category />
+      }
+    </div>
+  </div>
 </ion-content>
