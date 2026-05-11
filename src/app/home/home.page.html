@@ -1,11 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Testing...
-    </ion-title>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-meal-card></app-meal-card>
+  <div id="HomeContents">
+    <h1>Featured Cuisines</h1>
+    <div id="ListofCuisines">
+    @for (x of featured_meals_info; track $index) {
+      <div id="{{x.name}}Cuisines">
+        <h3>{{x.name}} Cuisines</h3>
+        <div class="CuisineCards" id="CuisineCards">
+          @for(y of x.meals; track $index) {
+            <app-meal-card  [meal_name]=y.meal_name [meal_image]=y.meal_image [meal_area]=y.meal_area [meal_category]=y.meal_category />
+          }
+        </div>
+      </div>
+    }
+    </div>
+  </div>
 </ion-content>
+
+
