@@ -15,9 +15,7 @@ export class MealCardComponent implements OnInit {
   meal_area = input<string>();
   meal_category = input<string>();
 
-  constructor() { 
-    
-  }
+  constructor() { }
 
   ngOnInit() { }
 
