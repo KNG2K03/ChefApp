@@ -28,19 +28,20 @@ export class SearchPage implements OnInit {
       this.search_results = []
       this.foodservice.search_food(search).subscribe((data) => {
         // console.log(data.meals)
-        for (let x of data.meals) {
+        if (data.meals !== null) {
+          for (let x of data.meals) {
+            // create meal object to hold required attributes 
+            let meal : any = {
+              meal_name : x.strMeal,
+              meal_image : x.strMealThumb,
+              meal_area : x.strArea,
+              meal_category : x.strCategory,
+              meal_id : x.idMeal
+            }
 
-          // create meal object to hold required attributes 
-          let meal : any = {
-            meal_name : x.strMeal,
-            meal_image : x.strMealThumb,
-            meal_area : x.strArea,
-            meal_category : x.strCategory,
-            meal_id : x.idMeal
+            // add the meal to the search results array
+            this.search_results.push(meal)
           }
-
-          // add the meal to the search results array
-          this.search_results.push(meal)
         }
         console.log(this.search_results)
       })
