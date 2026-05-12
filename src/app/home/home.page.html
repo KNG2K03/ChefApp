@@ -6,7 +6,8 @@
 
 <ion-content [fullscreen]="true">
   <div id="HomeContents">
-    <h1>Featured Cuisines</h1>
+    <h1 style="text-align: center;">Featured Cuisines</h1>
+    <hr>
     <div id="ListofCuisines">
     @for (x of featured_meals_info; track $index) {
       <div id="{{x.name}}Cuisines">
