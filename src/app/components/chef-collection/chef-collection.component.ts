@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-chef-collection',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chef-collection.component.scss'],
 })
 export class ChefCollectionComponent  implements OnInit {
+
+  collection_name = input<string>();
+  amount_of_meals = input<string>();
+  
 
   constructor() { }
 
