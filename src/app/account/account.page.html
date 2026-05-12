@@ -1,13 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>account</ion-title>
+    <ion-title>Account</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">account</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div id="AccountContents">
+    <div class="ProfileCard" id="ProfileCard">
+      <img src={{user_info.account_pfp}} class="ProfilePicture" id="ProfilePicture" />
+      <div class="UserDetails" id="UserDetails">
+        <h1 class="UserName" id="UserName">@{{user_info.account_username}}</h1>
+        <p class="FullName" id="FullName">{{user_info.account_fullname}}</p>
+      </div>
+    </div>
+    <div id="CollectionsContents">
+      <h1>Collections:</h1>
+      <div class="CollectionsList" id="CollectionsList">
+        @for (x of user_collections; track $index) {
+          <app-chef-collection [collection_name]=x.name [amount_of_meals]=x.amount />
+        }
+      </div>
+    </div>
+  </div>
 </ion-content>

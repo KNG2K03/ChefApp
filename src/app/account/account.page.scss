@@ -1,0 +1,31 @@
+.ProfileCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    // background-color: rgb(50, 50, 50);
+}
+
+.ProfilePicture {
+    width: 260px;
+    height: 260px;
+
+    border: 2px solid white;
+    border-radius: 130px;
+
+    margin-top: 10px;
+
+    object-fit: cover;
+}
+
+.UserDetails {
+    text-align: center;
+}
+
+.CollectionList {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-direction: vertical;
+}
