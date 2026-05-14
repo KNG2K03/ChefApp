@@ -2,6 +2,8 @@
 const express = require('express')
 const body_parser = require('body-parser')
 const mdb = require('mongoose')
+const cors = require('cors')
+const { first, last } = require('rxjs')
 
 // express 
 const app = express()
@@ -13,6 +15,15 @@ app.use(body_parser.json());
 
 // mongoose
 mongodb_connect().catch((err) => { console.log(err) })
+
+// cors 
+app.use(cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 // connecting to database
 async function mongodb_connect() {
@@ -42,48 +53,58 @@ let active_chef_id = "69f8cc0f6ed00851678fb229"
 
 app.post('/signup', async (req, res) => {
     // get credentials from request
-    let firstname = req.body.fname
-    let lastname = req.body.lname
-    let username = req.body.user
-    let password = req.body.pass
-    let recipe_book = req.body.rb
+    let firstname = req.body.user.fname
+    let lastname = req.body.user.lname
+    let username = req.body.user.uname
+    let password = req.body.user.pass
+    let recipe_book = req.body.user.rb
     
     // CHECK TO SEE IF EVERYTHING WORKS 
     // console.log(`Username: ${username}\nPassword: ${password}`)
     // console.log("Recipe Book:")
     // for (let x of recipe_book) console.log(x)
 
-    Chef.create({
-        first_name:firstname,
-        last_name:lastname,
-        user_name:username,
-        pass_word:password,
-        recipe_book:recipe_book
-    })
-    .then(() => {
-        console.log(`New document created in database.\nData Recorded:\nUsername: ${username}\nPassword: ${password}`)
-    }).catch((error) => {
-        console.log(`An error has occured\nError: ${error}`)
-    })
+    if (firstname.length === 0 || lastname.length === 0 || username.length === 0 || password.length === 0) {
+        res.status(500).json({
+            message: "Some of the credentials are empty"
+        })
+    }
+    else {
+        Chef.create({
+            first_name:firstname,
+            last_name:lastname,
+            user_name:username,
+            pass_word:password,
+            recipe_book:recipe_book
+        })
+        .then(() => {
+            console.log(`New document created in database.\nData Recorded:\nUsername: ${username}\nPassword: ${password}`)
+        }).catch((error) => {
+            console.log(`An error has occured\nError: ${error}`)
+        })
 
-    // now that the document has been created, this won't return null
-    let chef = await Chef.findOne({user_name:username, pass_word:password})
-    // and now we can set the active id for the session
-    active_chef_id = chef.id
-    // console.log(active_chef_id)
-    
-    res.status(200).json({
-        message: "Successfully Signed Up!",
-        chef_fname: chef.first_name,
-        chef_lname: chef.last_name,
-        chef_uname: chef.user_name,
-        chef_recipe_book: chef.recipe_book
-    })
+        //now that the document has been created, this won't return null
+        let chef = await Chef.findOne({user_name:username, pass_word:password})
+        //and now we can set the active id for the session
+        active_chef_id = chef.id
+        // console.log(active_chef_id)
+        
+        res.status(200).json({
+            message: "Successfully Signed Up!",
+            chef : {
+                chef_fname: chef.first_name,
+                chef_lname: chef.last_name,
+                chef_uname: chef.user_name,
+                chef_recipe_book: chef.recipe_book
+            }
+        })
+    }
 })
 
-app.get('/signin', async (req, res) => {
-    let username = req.body.uname
-    let password = req.body.pass
+app.post('/signin', async (req, res) => {
+    let username = req.body.user.uname
+    let password = req.body.user.pass
+    // console.log(`Username: ${username}\nPassword: ${password}`)
 
     // find chef with the correct credentials
     let chef = await Chef.findOne({user_name: username, pass_word: password})
@@ -93,10 +114,12 @@ app.get('/signin', async (req, res) => {
 
         res.status(200).json({
             message: "Successfully Signed In!",
-            chef_fname: chef.first_name,
-            chef_lname: chef.last_name,
-            chef_uname: chef.user_name,
-            chef_recipe_book: chef.recipe_book
+            chef : {
+                chef_fname: chef.first_name,
+                chef_lname: chef.last_name,
+                chef_uname: chef.user_name,
+                chef_recipe_book: chef.recipe_book
+            }
         })
     }
     else {
