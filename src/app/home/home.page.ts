@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { Storage } from '@ionic/storage-angular';
 import { MealCardComponent } from '../components/meal-card/meal-card.component';
 import { FoodService } from '../Services/food';
+
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,7 @@ import { FoodService } from '../Services/food';
 })
 export class HomePage {
 
-  constructor(private foodService:FoodService) {
+  constructor(private foodService:FoodService, private storage:Storage) {
     // get 5 countries and add them to the featured countries array
     for (let i=0; i<=4; i++) {
       // get random number for featured country array 
@@ -27,6 +29,10 @@ export class HomePage {
     }
     
     this.getFood()
+  }
+
+  async ngOnInit() {
+    await this.storage.create()
   }
 
   // a list of potential countries to be featured on the home page
