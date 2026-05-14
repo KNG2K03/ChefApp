@@ -92,10 +92,10 @@ app.post('/signup', async (req, res) => {
         res.status(200).json({
             message: "Successfully Signed Up!",
             chef : {
-                chef_fname: chef.first_name,
-                chef_lname: chef.last_name,
-                chef_uname: chef.user_name,
-                chef_recipe_book: chef.recipe_book
+                fname: chef.first_name,
+                lname: chef.last_name,
+                uname: chef.user_name,
+                recipe_book: chef.recipe_book
             }
         })
     }
@@ -115,10 +115,10 @@ app.post('/signin', async (req, res) => {
         res.status(200).json({
             message: "Successfully Signed In!",
             chef : {
-                chef_fname: chef.first_name,
-                chef_lname: chef.last_name,
-                chef_uname: chef.user_name,
-                chef_recipe_book: chef.recipe_book
+                fname: chef.first_name,
+                lname: chef.last_name,
+                uname: chef.user_name,
+                recipe_book: chef.recipe_book
             }
         })
     }
