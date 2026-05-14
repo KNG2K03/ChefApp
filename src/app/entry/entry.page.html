@@ -1,13 +1,37 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>entry</ion-title>
+    <ion-segment (ionChange)="segment_change($event)" value="sign-up">
+      <ion-segment-button value="sign-up">
+        <ion-label>Sign-Up</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="sign-in">
+        <ion-label>Sign-In</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">entry</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="entryContents" id="entryContents">
+    <h1 style="text-align: center;">{{top_message}}</h1>
+    <br>
+    <div class="entryForm" id="entryForm">
+      <ion-list>
+        <ion-item *ngIf=isSignUp>
+          <ion-input type="text" required="true" label="First name" labelPlacement="floating" placeholder="Enter First name" (ionInput)="FirstNameInput($event)"></ion-input>
+        </ion-item>
+        <ion-item *ngIf=isSignUp>
+          <ion-input type="text" required="true" label="Last name" labelPlacement="floating" placeholder="Enter Last name" (ionInput)="LastNameInput($event)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" required="true" label="Username" labelPlacement="floating" placeholder="Enter Username" (ionInput)="UserNameInput($event)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" required="true" label="Password" labelPlacement="floating" placeholder="Enter Password" (ionInput)="PasswordInput($event)"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <br>
+    <ion-button (click)="ConfirmClick()" shape="round" fill="clear" class="ConfirmButton" id="ConfirmButton">Confirm</ion-button>
+  </div>
 </ion-content>

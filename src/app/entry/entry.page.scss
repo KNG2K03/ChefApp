@@ -1,0 +1,22 @@
+.entryContents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 100%;
+}
+
+.entryForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+ion-button {
+    --color: white;
+    --border-color: white;
+    --border-style: solid;
+    --border-width: 1px;
+}
